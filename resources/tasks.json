@@ -1,0 +1,28 @@
+{
+    "tasks": [
+        {
+            "uuid": "cfab2202-7b7a-420a-98cb-97d1882f4a49",
+            "client-id": "e4947a81-dbc2-40de-aad8-0dd3eab591f5",
+            "message": "Das ist ein Editiertest",
+            "state": true
+        },
+        {
+            "uuid": "814f788c-41d1-4354-bbe4-6eff01e3557f",
+            "client-id": "703601b0-cc92-4826-b06a-2fe3d034b502",
+            "message": "New Task",
+            "state": false
+        },
+        {
+            "uuid": "28ef3590-8e04-4816-b7d1-660d5614eb7b",
+            "client-id": "703601b0-cc92-4826-b06a-2fe3d034b502",
+            "message": "New Task",
+            "state": false
+        },
+        {
+            "uuid": "b34c7dac-a111-4161-bee5-e18ea305a0ea",
+            "client-id": "703601b0-cc92-4826-b06a-2fe3d034b502",
+            "message": "Hallo Welt",
+            "state": false
+        }
+    ]
+}

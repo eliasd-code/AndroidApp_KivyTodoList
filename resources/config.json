@@ -1,0 +1,15 @@
+{
+  "mqtt": {
+    "client-id": "703601b0-cc92-4826-b06a-2fe3d034b502",
+    "connection": {
+      "broker-adress": "4757e0b60f564e78900a097c3086a003.s1.eu.hivemq.cloud",
+      "port": 8883,
+      "qos": 1,
+      "topic": "todoapp/tasks"
+    },
+    "user": {
+      "username": "testtest",
+      "password": "Test1234"
+    }
+  }
+}

@@ -1,0 +1,242 @@
+
+<ToDoListItem>:
+    size_hint_y: None
+    height: dp(40)
+    orientation: 'horizontal'
+    padding: [20, 0, 0, 5]
+
+    canvas.before:
+        Color:
+            rgba: 0.596, 0.984, 0.596, 1
+        Line:
+            rectangle: self.x+1, self.y+1, self.width-2, self.height-2
+            width: 1.25
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MDCheckbox:
+        id: checkbox
+        active: root.state
+        size_hint: None, None
+        size: dp(24), dp(24)
+        active_color: 0.058, 0.615, 0.345, 1
+        inactive_color: 0.501, 0.501, 0.501, 1
+        pos_hint: {'center_y': 0.5, 'x': 0.5}
+        on_active: root.on_checkbox_change(*args)
+
+    Label:
+        id: task_label
+        text: root.text
+        color: 0, 0, 0, 1
+        padding: [5, 0, 0, 0]
+        pos_hint: {"center_y": .5}
+        size_hint_y: None
+        height: dp(24)
+        width: dp(300)
+
+
+    MDRaisedButton:
+        id: edit_button
+        text: 'Edit'
+        text_color: 0, 0, 0, 1
+        md_bg_color: 0.596, 0.984, 0.596, 1
+        height: root.height*0.5
+        width: root.width*0.12
+        size_hint: None, None
+        opacity: 0
+        disabled: True
+        on_release: app.root.get_screen('main').edit_item(root)
+
+    MDRaisedButton:
+        id: delete_button
+        text: 'Delete'
+        text_color: 0, 0, 0, 1
+        md_bg_color: 0.596, 0.984, 0.596, 1
+        height: root.height*0.5
+        width: root.width*0.18
+        size_hint: None, None
+        opacity: 0
+        disabled: True
+        on_release: app.root.get_screen('main').delete_item(root.id)
+
+
+
+
+
+
+<MainScreen>:
+    name: 'main'
+    orientation: 'vertical'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        size_hint_y: None
+        padding: [20, 20, 20, 20]
+        height: dp(50)
+        spacing: dp(10)
+        padding: dp(10)
+
+
+    RecycleView:
+        id: rv
+        viewclass: 'ToDoListItem'
+        RecycleBoxLayout:
+            default_size: None, dp(48)
+            default_size_hint: 1, None
+            size_hint_y: None
+            height: self.minimum_height
+            orientation: 'vertical'
+            spacing: dp(3)
+
+    BoxLayout:
+        size_hint_y: 0.3
+        orientation: 'horizontal'
+        TextInput:
+            id: global_edit_text
+            multiline: False
+            opacity: 0
+            disabled: True
+            on_text_validate: root.apply_global_edit()
+
+    BoxLayout:
+        size_hint_y: 0.1
+        orientation: 'horizontal'
+        MDRaisedButton:
+            text: 'Settings'
+            text_color: 0, 0, 0, 1
+            size_hint: None, None
+            height: root.height*0.1
+            width: root.width*0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            md_bg_color: 0.596, 0.984, 0.596, 1
+            opacity: 1
+            disabled: False
+            on_release: app.root.current = 'login'
+
+        Widget:
+            size_hint_y: None
+            width: dp(20)
+
+        MDIconButton:
+            icon: "refresh"
+            size_hint: None, None
+            height: root.height*0.075
+            width: root.width*0.125
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            md_bg_color: 0.596, 0.984, 0.596, 1
+            on_release: root.sync_items()
+            opacity: 1
+            disabled: False
+
+        Widget:
+            size_hint_y: None
+            width: dp(20)
+
+        MDRaisedButton:
+            text: '+'
+            text_color: 0, 0, 0, 1
+            size_hint: None, None
+            height: root.height*0.1
+            width: root.width*0.3
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            md_bg_color: 0.596, 0.984, 0.596, 1
+            on_release: root.add_item()
+            opacity: 1
+            disabled: False
+
+
+<SettingScreen>:
+    name: 'login'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: 20
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            pos_hint: {'center_y': 1}
+            padding: [20, 20, 20, 20]
+            spacing: dp(10)
+
+            TextInput:
+                id: username_input
+                hint_text: 'Username'
+                size_hint_y: None
+                height: dp(40)
+                padding_y: (10, 10)
+
+            TextInput:
+                id: password_input
+                hint_text: 'Password'
+                password: True
+                size_hint_y: None
+                height: dp(40)
+                padding_y: (10, 10)
+
+            TextInput:
+                id: broker_adress
+                hint_text: 'Broker Adresse'
+                size_hint_y: None
+                height: dp(40)
+                padding_y: (10, 10)
+
+            TextInput:
+                id: port_input
+                hint_text: 'Port'
+                size_hint_y: None
+                height: dp(40)
+                padding_y: (10, 10)
+
+            TextInput:
+                id: topic_input
+                hint_text: 'Topic'
+                size_hint_y: None
+                height: dp(40)
+                padding_y: (10, 10)
+
+            Widget:
+                size_hint_y: None
+                height: dp(20)
+
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            pos_hint: {'center_y': .5}
+            padding: [20, 20, 20, 20]
+            spacing: dp(10)
+
+            MDRaisedButton:
+                text: 'Connect'
+                text_color: 0, 0, 0, 1
+                size_hint: None, None
+                padding_y: dp(20)
+                pos_hint: {"center_x": .5}
+                height: root.height*0.1
+                width: root.width*0.8
+                md_bg_color: 0.596, 0.984, 0.596, 1
+                on_release: root.update_config_json(username_input, password_input, broker_adress, port_input, topic_input)
+
+            Widget:
+                size_hint_y: None
+                height: dp(20)
+
+        BoxLayout:
+            size_hint_y: 0.0
+            orientation: 'horizontal'
+            MDRaisedButton:
+                text: 'Back'
+                text_color: 0, 0, 0, 1
+                size_hint: None, None
+                height: root.height*0.1
+                width: root.width*0.3
+                md_bg_color: 0.596, 0.984, 0.596, 1
+                on_release: app.root.current = 'main'
+
